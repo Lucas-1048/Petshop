@@ -3,6 +3,8 @@ import { PrimaryInput } from "./components/PrimaryInput.tsx";
 import { Button, Image, Spacer } from "@chakra-ui/react";
 import logo from "./images/logo.jpg";
 import banho from "./images/banho.jpg";
+import { useDataMutation } from "./hooks/useDataMutation.ts";
+import { useState } from "react";
 
 function Header() {
   return (
@@ -52,25 +54,27 @@ function Options() {
   );
 }
 
-function Form({
-  labels,
-}: {
-  labels: { label: string; type: "number" | "date" }[];
-}) {
-  return (
-    <form>
-      <PrimaryInput labels={labels} />
-      <Button colorScheme="teal" boxShadow="md">Calcular</Button>
-    </form>
-  );
-}
-
 function App() {
-  const labels = [
-    { label: "Quando irá ao petshop?", type: "date" as const },
-    { label: "Quantos pets pequenos irá levar?", type: "number" as const },
-    { label: "Quantos pets grandes irá levar?", type: "number" as const },
-  ];
+  const { mutate } = useDataMutation();
+  const [date, setDate] = useState("");
+  const [smallPets, setSmallPets] = useState(0);
+  const [bigPets, setBigPets] = useState(0);
+  
+  const handleChangeSmall = (_valueAsString: string, valueAsNumber: number) => {
+    setSmallPets(valueAsNumber);
+  };
+
+  const handleChangeBig = (_valueAsString: string, valueAsNumber: number) => {
+    setBigPets(valueAsNumber);
+  };
+
+  const submit = () => {
+    mutate({
+      date,
+      smallPets,
+      bigPets,
+    });
+  };
 
   return (
     <div className="container">
@@ -79,7 +83,19 @@ function App() {
       <div className="body">
         <Options />
         <Spacer width="12" maxWidth="12" />
-        <Form labels={labels} />
+        <form>
+          <PrimaryInput
+            labelDate="Quando irá ao petshop?"
+            labelSmallPets="Quantos pets pequenos irá levar?"
+            labelBigPets="Quantos pets grandes irá levar?"
+            onChangeDate={event => setDate(event.target.value)}
+            onChangeSmall={handleChangeSmall}
+            onChangeBig={handleChangeBig}
+          />
+          <Button colorScheme="teal" boxShadow="md" onClick={submit}>
+            Calcular
+          </Button>
+        </form>
       </div>
     </div>
   );

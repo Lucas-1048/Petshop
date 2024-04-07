@@ -7,30 +7,59 @@ import {
   NumberIncrementStepper,
   NumberDecrementStepper,
 } from "@chakra-ui/react";
+import { ChangeEventHandler } from "react";
 
 interface PrimaryInputProps {
-  labels: { label: string; type: "date" | "number" }[];
+  labelDate: string;
+  labelSmallPets: string;
+  labelBigPets: string;
+  onChangeDate: ChangeEventHandler<HTMLInputElement>;
+  onChangeSmall: (valueAsString: string, valueAsNumber: number) => void;
+  onChangeBig: (valueAsString: string, valueAsNumber: number) => void;
 }
 
-export const PrimaryInput: React.FC<PrimaryInputProps> = ({ labels }) => {
+export function PrimaryInput({
+  labelDate,
+  labelSmallPets,
+  labelBigPets,
+  onChangeDate,
+  onChangeSmall,
+  onChangeBig,
+}: PrimaryInputProps) {
   return (
     <div className="input-container">
-      {labels.map(({ label, type }, index) => (
-        <div key={index}>
-          <label className="label">{label}</label>
-          {type === "date" ? (
-            <Input type="date" color="#575757" />
-          ) : type === "number" ? (
-            <NumberInput defaultValue={0} min={0} max={100} color="#575757">
-              <NumberInputField />
-              <NumberInputStepper>
-                <NumberIncrementStepper />
-                <NumberDecrementStepper />
-              </NumberInputStepper>
-            </NumberInput>
-          ) : null}
-        </div>
-      ))}
-    </div>
+      <label className="labelDate">{labelDate}</label>
+      <Input type="date" color="#575757" onChange={onChangeDate} />
+
+      <label className="labelSmallPets">{labelSmallPets}</label>
+      <NumberInput
+        defaultValue={0}
+        min={0}
+        max={100}
+        color="#575757"
+        onChange={onChangeSmall}
+      >
+        <NumberInputField />
+        <NumberInputStepper>
+          <NumberIncrementStepper />
+          <NumberDecrementStepper />
+        </NumberInputStepper>
+      
+      <label className="labelBigPets">{labelBigPets}</label>
+      </NumberInput>
+        <NumberInput
+          defaultValue={0}
+          min={0}
+          max={100}
+          color="#575757"
+          onChange={onChangeBig}
+        >
+          <NumberInputField />
+          <NumberInputStepper>
+            <NumberIncrementStepper />
+            <NumberDecrementStepper />
+          </NumberInputStepper>
+        </NumberInput>
+      </div>
   );
-};
+}
