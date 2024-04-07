@@ -1,7 +1,7 @@
 import "./App.css";
 import { PrimaryInput } from "./components/PrimaryInput.tsx";
 import { Button, Image } from "@chakra-ui/react";
-import logo from "./images/logo.jpg";
+import logo from "./assets/logo.jpg";
 import { useDataMutation } from "./hooks/useDataMutation.ts";
 import { useState } from "react";
 
