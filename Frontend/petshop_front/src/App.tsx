@@ -1,8 +1,7 @@
 import "./App.css";
 import { PrimaryInput } from "./components/PrimaryInput.tsx";
-import { Button, Image, Spacer } from "@chakra-ui/react";
+import { Button, Image } from "@chakra-ui/react";
 import logo from "./images/logo.jpg";
-import banho from "./images/banho.jpg";
 import { useDataMutation } from "./hooks/useDataMutation.ts";
 import { useState } from "react";
 
@@ -11,7 +10,7 @@ function Header() {
     <div className="header">
       <Image boxSize="60px" src={logo} />
       <h1>
-        Petshop ®<br /> Searcher{" "}
+        Petshop ®<br /> Searcher
       </h1>
     </div>
   );
@@ -20,11 +19,9 @@ function Header() {
 function Text() {
   return (
     <div className="text">
-      <p>
+      <h1>
         Encontre o melhor petshop <br /> próximo de você{" "}
-      </p>
-      <Spacer width="40" maxWidth="40" />
-      <Image borderRadius="12" boxSize="200px" src={banho} />
+      </h1>
     </div>
   );
 }
@@ -40,10 +37,9 @@ function Options() {
           finais de <br /> semana o preço dos banhos é aumentado em 20%.
         </li>
         <li>
-          Vai Rex: O preço do banho para dias úteis em cães pequenos é R$15,00 e{" "}
+          Vai Rex: O preço do banho para dias úteis em cães pequenos é R$15,00 e
           <br /> em cães grandes é R$50,00. Durante os finais de semana o preço
-          para cães <br />
-          pequenos é R$ 20,00 e para os grandes é R$ 55,00
+          para cães <br /> pequenos é R$ 20,00 e para os grandes é R$ 55,00
         </li>
         <li>
           ChowChawgas: O preço do banho é o mesmo em todos os dias dasemana.
@@ -56,10 +52,11 @@ function Options() {
 
 function App() {
   const { mutate } = useDataMutation();
+
   const [date, setDate] = useState("");
   const [smallPets, setSmallPets] = useState(0);
   const [bigPets, setBigPets] = useState(0);
-  
+
   const handleChangeSmall = (_valueAsString: string, valueAsNumber: number) => {
     setSmallPets(valueAsNumber);
   };
@@ -79,16 +76,17 @@ function App() {
   return (
     <div className="container">
       <Header />
-      <Text />
       <div className="body">
-        <Options />
-        <Spacer width="12" maxWidth="12" />
+        <div className="text">
+          <Text />
+          <Options />
+        </div>
         <form>
           <PrimaryInput
             labelDate="Quando irá ao petshop?"
             labelSmallPets="Quantos pets pequenos irá levar?"
             labelBigPets="Quantos pets grandes irá levar?"
-            onChangeDate={event => setDate(event.target.value)}
+            onChangeDate={(event) => setDate(event.target.value)}
             onChangeSmall={handleChangeSmall}
             onChangeBig={handleChangeBig}
           />

@@ -10,5 +10,22 @@
 
 .input-container > div {
     width: 100%;
-    margin-bottom: 16px;
+    text-align: left;
+    margin-bottom: 8px;
+}
+
+.input-container .labelDate {
+    width: 100%;
+    margin-bottom: 4px;
+}
+
+.input-container .labelSmallPets {
+    width: 100%;
+    margin-top: 8px;
+    margin-bottom: 4px;
+}
+
+.input-container .labelBigPets {
+    width: 100%;
+    margin-bottom: 4px;
 }

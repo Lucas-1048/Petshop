@@ -1,12 +1,7 @@
 import { Input } from "@chakra-ui/react";
 import "./PrimaryInput.css";
-import {
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
-} from "@chakra-ui/react";
+import { NumberInput, NumberInputField, NumberInputStepper,
+  NumberIncrementStepper, NumberDecrementStepper } from "@chakra-ui/react";
 import { ChangeEventHandler } from "react";
 
 interface PrimaryInputProps {
@@ -18,14 +13,8 @@ interface PrimaryInputProps {
   onChangeBig: (valueAsString: string, valueAsNumber: number) => void;
 }
 
-export function PrimaryInput({
-  labelDate,
-  labelSmallPets,
-  labelBigPets,
-  onChangeDate,
-  onChangeSmall,
-  onChangeBig,
-}: PrimaryInputProps) {
+export function PrimaryInput({ labelDate, labelSmallPets, labelBigPets,
+  onChangeDate, onChangeSmall, onChangeBig, }: PrimaryInputProps) {
   return (
     <div className="input-container">
       <label className="labelDate">{labelDate}</label>
@@ -33,33 +22,25 @@ export function PrimaryInput({
 
       <label className="labelSmallPets">{labelSmallPets}</label>
       <NumberInput
-        defaultValue={0}
-        min={0}
-        max={100}
-        color="#575757"
-        onChange={onChangeSmall}
+        defaultValue={0} min={0} max={100} color="#575757" onChange={onChangeSmall}
       >
         <NumberInputField />
         <NumberInputStepper>
           <NumberIncrementStepper />
           <NumberDecrementStepper />
         </NumberInputStepper>
+      </NumberInput>
       
       <label className="labelBigPets">{labelBigPets}</label>
+      <NumberInput 
+        defaultValue={0} min={0} max={100} color="#575757" onChange={onChangeBig}
+      >
+        <NumberInputField />
+        <NumberInputStepper>
+          <NumberIncrementStepper />
+          <NumberDecrementStepper />
+        </NumberInputStepper>
       </NumberInput>
-        <NumberInput
-          defaultValue={0}
-          min={0}
-          max={100}
-          color="#575757"
-          onChange={onChangeBig}
-        >
-          <NumberInputField />
-          <NumberInputStepper>
-            <NumberIncrementStepper />
-            <NumberDecrementStepper />
-          </NumberInputStepper>
-        </NumberInput>
-      </div>
+    </div>
   );
 }
