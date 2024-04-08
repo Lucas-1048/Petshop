@@ -1,50 +1,11 @@
-// App.js
-import "./App.css";
-import { PrimaryInput } from "./components/PrimaryInput.tsx";
-import { Button, Image } from "@chakra-ui/react";
-import logo from "./assets/logo.jpg";
 import { useState } from "react";
-import axios from "axios";
-
-function Header() {
-  return (
-    <div className="header">
-      <Image boxSize="60px" src={logo} />
-      <h1>
-        Petshop ®<br /> Searcher
-      </h1>
-    </div>
-  );
-}
-
-function Text() {
-  return (
-    <div className="text">
-      <h1>
-        Encontre o melhor petshop <br /> próximo de você{" "}
-      </h1>
-    </div>
-  );
-}
-
-function Options() {
-  return (
-    <div className="options" style={{maxWidth: "570px"}}>
-      <h2>Petshops disponíveis</h2>
-      <ul>
-        <li>
-          <strong>Meu Canino Feliz:</strong> Em dias de semana o banho para cães pequenos custa R$20,00 e o banho em cães grandes custa R$40,00. Durante os finais de semana o preço dos banhos é aumentado em 20%.
-        </li>
-        <li>
-          <strong>Vai Rex:</strong> O preço do banho para dias úteis em cães pequenos é R$15,00 e em cães grandes é R$50,00. Durante os finais de semana o preço para cães pequenos é R$ 20,00 e para os grandes é R$ 55,00.
-        </li>
-        <li>
-          <strong>ChowChawgas:</strong> O preço do banho é o mesmo em todos os dias da semana. Para cães pequenos custa R$30 e para cães grandes R$45,00.
-        </li>
-      </ul>
-    </div>
-  );
-}
+import "./App.css";
+import { Header } from "./components/common/Header";
+import { Text } from "./components/common/Text";
+import { Options } from "./components/common/Options";
+import { PrimaryInput } from "./components/common/PrimaryInput";
+import { Button } from "./components/shared/Button";
+import { sendData } from "./services/api";
 
 function App() {
   const [responseMessage, setResponseMessage] = useState("");
@@ -62,10 +23,8 @@ function App() {
 
   const submit = async () => {
     try {
-      const formattedDate = new Date(date).toISOString();
-      const data = { date: formattedDate, smallPets, bigPets };
-      const response = await axios.post("http://localhost:8080/send-data", data);
-      setResponseMessage(`Petshop: ${response.data.petshopName}\nValor total: R$${response.data.lowestPrice},00`);
+      const responseData = await sendData(date, smallPets, bigPets);
+      setResponseMessage(`Petshop: ${responseData.petshopName}\nValor total: R$${responseData.lowestPrice},00`);
     } catch (error) {
       console.error("Erro ao fazer solicitação POST:", error);
       throw error;
@@ -74,7 +33,7 @@ function App() {
 
   const handleBack = () => {
     setDate("");
-    setSmallPets(0); 
+    setSmallPets(0);
     setBigPets(0);
     setResponseMessage("");
   };
@@ -90,12 +49,13 @@ function App() {
         <form>
           {responseMessage !== "" ? (
             <div>
-              <p>{responseMessage.split('\n')[0]}<br />
-                {responseMessage.split('\n')[1]}</p>
+              <p>
+                {responseMessage.split("\n")[0]}
+                <br />
+                {responseMessage.split("\n")[1]}
+              </p>
               <br />
-              <Button colorScheme="teal" boxShadow="md" onClick={handleBack}>
-                Voltar
-              </Button>
+              <Button onClick={handleBack}>Voltar</Button>
             </div>
           ) : (
             <>
@@ -107,9 +67,7 @@ function App() {
                 onChangeSmall={handleChangeSmall}
                 onChangeBig={handleChangeBig}
               />
-              <Button colorScheme="teal" boxShadow="md" onClick={submit}>
-                Calcular
-              </Button>
+              <Button onClick={submit}>Calcular</Button>
             </>
           )}
         </form>
