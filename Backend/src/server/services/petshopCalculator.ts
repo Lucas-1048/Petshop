@@ -1,32 +1,5 @@
 import { IPetshop } from "../data/petshopInfo";
 
-const getDayOfWeek = (date: string) => {
-    const [day, month, year] = date.split("/");
-
-    const dateFormat = new Date(Number(year), Number(month)-1, Number(day));
-
-    if (isNaN(dateFormat.getTime())) {
-        throw new Error('Data inválida');
-    }
-
-    return dateFormat.getDay();
-}
-
-const getMinPrice = (meuCaninoFeliz: number, vaiRex: number, chowChawgas: number) => {
-    const lowestPrice = Math.min(meuCaninoFeliz, vaiRex, chowChawgas);
-
-    let petshopName = "";
-    if (lowestPrice === meuCaninoFeliz) {
-        petshopName = "Meu Canino Feliz";
-    } else if (lowestPrice === vaiRex) {
-        petshopName = "Vai Rex";
-    } else {
-        petshopName = "ChowChawgas";
-    }
-
-    return { petshopName, lowestPrice };
-}
-
 const calculatePrices = (petshop: IPetshop, dayOfWeek: number, smallPets: number, bigPets: number) => {
     let price = 0;
     if (dayOfWeek >= 1 && dayOfWeek <= 5) { // Weekdays
@@ -39,4 +12,21 @@ const calculatePrices = (petshop: IPetshop, dayOfWeek: number, smallPets: number
     return price;
 }
 
-export { getDayOfWeek, getMinPrice, calculatePrices };
+const getMinPrice = (meuCaninoFeliz: number, vaiRex: number, chowChawgas: number) => {
+    const lowestPrice = Math.min(chowChawgas, vaiRex, meuCaninoFeliz);
+
+    let petshopName = "";
+
+    // A ordem das comparações garante que a distância do canil seja a menor
+    if (lowestPrice === chowChawgas) {
+        petshopName = "ChowChawgas";
+    } else if (lowestPrice === vaiRex) {
+        petshopName = "Vai Rex";
+    } else {
+        petshopName = "Meu Canino Feliz";
+    }
+
+    return { petshopName, lowestPrice };
+}
+
+export { calculatePrices, getMinPrice };

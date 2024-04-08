@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { petshopGetter } from "../controllers/calculator";
+import { petshopGetter } from "../controllers/petshopResponse";
 
 export const router = Router();
 
