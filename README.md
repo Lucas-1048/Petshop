@@ -13,22 +13,24 @@ Este é um projeto para o teste prático da vaga de estágio da dti digital. O s
 
 - Optei por usar o framework Express para implementar o back-end nesse projeto, pois é a ferramenta em que tenho mais experiência.
 - Considerei a distância com relação ao canil quando retornei a resposta para o front-end (mais próximo tem maior prioridade).
-- Implementei alguns testes unitários apenas no back-end, devido ao fato de eu não ter familiaridade com frameworks de teste no front-end.
+- Implementei testes unitários apenas no back-end, devido ao fato de eu não ter familiaridade com frameworks de teste no front-end.
 - Fiz uso do Chakra para facilitar a estilização da página.
 
 ## Instruções para Executar o Sistema
 
 1. Certifique-se de ter o Node instalado em sua máquina. 
 2. Clone o repositório para sua máquina local.
-3. Navegue até o diretório _Backend_ e rode o seguinte comando no terminal:
+3. Navegue até o diretório _Backend_ e rode os seguintes comandos no terminal:
 
   ```bash
+  npm i
   npm start
   ```
 
 4. Agora vá para o diretório _Frontend/petshop_front_ e execute no terminal:
 
   ```bash
+  npm i
   npm run dev
   ```
 
@@ -39,4 +41,4 @@ Este é um projeto para o teste prático da vaga de estágio da dti digital. O s
   ```bash
   npm test
   ```
-  Você pode conferir os testes no diretório _Backend/tests_.
+   Você pode conferir os testes no diretório _Backend/tests_.
