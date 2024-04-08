@@ -26,8 +26,15 @@ function App() {
       const responseData = await sendData(date, smallPets, bigPets);
       setResponseMessage(`Petshop: ${responseData.petshopName}\nValor total: R$${responseData.lowestPrice},00`);
     } catch (error) {
-      console.error("Erro ao fazer solicitação POST:", error);
-      throw error;
+      if (error instanceof RangeError && error.message === "Invalid time value") {
+        alert("Por favor, selecione uma data válida.");
+        return;
+      }
+      else if (error instanceof Error && error.message === "Nenhum pet foi selecionado.") {
+        alert("Por favor, selecione pelo menos um animal para banho.");
+        return;
+      }
+      else console.error("Erro ao fazer solicitação POST:", error);
     }
   };
 
