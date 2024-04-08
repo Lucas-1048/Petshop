@@ -10,6 +10,9 @@ interface IData {
 
 const getDate = (date: string) => {
     const dateFormat = new Date(date);
+    if (isNaN(dateFormat.getDay())) {
+        throw new Error('Data inválida');
+    }
     dateFormat.setDate(dateFormat.getDate()+1);
     return dateFormat.getDay();
 }
